@@ -1,0 +1,15 @@
+/* Custom overrides */
+.hero {
+  padding: 6rem 0;
+}
+.features {
+  padding: 4rem 0;
+}
+.testimonials {
+  background-color: #f8f9fa;
+  padding: 4rem 0;
+}
+.footer {
+  padding: 2rem 0;
+  text-align: center;
+}

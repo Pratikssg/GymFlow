@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Analytics – Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto space-y-8">
+    <!-- Header -->
+    <header class="text-center">
+      <h1 class="text-4xl font-bold text-blue-700">📊 Reservation Analytics</h1>
+      <p class="text-gray-600 mt-2">Overview of equipment usage and total reservations</p>
+    </header>
+
+    <!-- Total Reservations -->
+    <section class="bg-white p-6 rounded-xl shadow space-y-6">
+      <div class="flex justify-between items-center">
+        <h2 class="text-2xl font-semibold text-gray-800">Total Reservations</h2>
+        <span class="text-3xl font-bold text-blue-600">10</span>
+      </div>
+
+      <!-- Equipment Usage Table -->
+      <div class="overflow-x-auto mt-4">
+        <table class="min-w-full table-auto border border-gray-300 rounded-lg overflow-hidden text-sm">
+          <thead class="bg-blue-50">
+            <tr>
+              <th class="px-4 py-3 text-left text-blue-800 font-medium">Equipment</th>
+              <th class="px-4 py-3 text-left text-blue-800 font-medium">Usage Count</th>
+              <th class="px-4 py-3 text-left text-blue-800 font-medium">Usage Chart</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100">
+            <!-- Dummy Row 1 -->
+            <tr>
+              <td class="px-4 py-3 font-medium">Treadmill</td>
+              <td class="px-4 py-3">4</td>
+              <td class="px-4 py-3">
+                <div class="w-full bg-gray-200 h-4 rounded-full">
+                  <div class="h-4 bg-blue-500 rounded-full transition-all duration-300 ease-in-out" style="width: 40%"></div>
+                </div>
+              </td>
+            </tr>
+            <!-- Dummy Row 2 -->
+            <tr>
+              <td class="px-4 py-3 font-medium">Bench Press</td>
+              <td class="px-4 py-3">3</td>
+              <td class="px-4 py-3">
+                <div class="w-full bg-gray-200 h-4 rounded-full">
+                  <div class="h-4 bg-blue-500 rounded-full transition-all duration-300 ease-in-out" style="width: 30%"></div>
+                </div>
+              </td>
+            </tr>
+            <!-- Dummy Row 3 -->
+            <tr>
+              <td class="px-4 py-3 font-medium">Elliptical</td>
+              <td class="px-4 py-3">2</td>
+              <td class="px-4 py-3">
+                <div class="w-full bg-gray-200 h-4 rounded-full">
+                  <div class="h-4 bg-blue-500 rounded-full transition-all duration-300 ease-in-out" style="width: 20%"></div>
+                </div>
+              </td>
+            </tr>
+            <!-- Dummy Row 4 -->
+            <tr>
+              <td class="px-4 py-3 font-medium">Rowing Machine</td>
+              <td class="px-4 py-3">1</td>
+              <td class="px-4 py-3">
+                <div class="w-full bg-gray-200 h-4 rounded-full">
+                  <div class="h-4 bg-blue-500 rounded-full transition-all duration-300 ease-in-out" style="width: 10%"></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Back Link -->
+    <div class="text-center pt-4">
+      <a href="/admin/dashboard" class="text-blue-600 hover:underline text-sm">← Back to Admin Dashboard</a>
+    </div>
+  </div>
+</body>
+</html>

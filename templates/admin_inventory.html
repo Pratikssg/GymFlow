@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Equipment Inventory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+  <div class="max-w-6xl mx-auto space-y-10">
+    <h1 class="text-3xl font-bold text-indigo-700">🛠️ Equipment Inventory</h1>
+
+    <!-- Add Equipment Form -->
+    <form action="/admin/inventory/add" method="POST" class="bg-white p-6 rounded-lg shadow space-y-4">
+      <h2 class="text-lg font-semibold text-gray-800">➕ Add New Equipment</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <input type="text" name="name" placeholder="Equipment Name" required class="border p-2 rounded w-full" />
+        <input type="text" name="category" placeholder="Category" class="border p-2 rounded w-full" />
+        <select name="status" class="border p-2 rounded w-full">
+          <option value="Operational">Operational</option>
+          <option value="Maintenance">Under Maintenance</option>
+        </select>
+      </div>
+      <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow">Add Equipment</button>
+    </form>
+
+    <!-- Equipment List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {% for item in equipment %}
+      <div class="bg-white p-4 rounded-lg shadow space-y-2">
+        <h2 class="text-xl font-semibold text-gray-800">{{ item.name }}</h2>
+        <p class="text-sm text-gray-600">Category: {{ item.category or 'N/A' }}</p>
+        <p class="text-sm text-gray-600">Status: {{ item.status or 'Operational' }}</p>
+        <p class="text-xs text-gray-400">ID: {{ item.equipment_id }}</p>
+
+        <!-- Edit Form -->
+        <form action="/admin/inventory/update" method="POST" class="space-y-2 mt-2">
+          <input type="hidden" name="equipment_id" value="{{ item.equipment_id }}">
+          <input type="text" name="name" value="{{ item.name }}" required class="border p-1 rounded w-full text-sm" />
+          <select name="status" class="border p-1 rounded w-full text-sm">
+            <option value="Operational" {% if item.status == 'Operational' %}selected{% endif %}>Operational</option>
+            <option value="Maintenance" {% if item.status == 'Maintenance' %}selected{% endif %}>Maintenance</option>
+          </select>
+          <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm">Update</button>
+        </form>
+
+        <!-- Delete Form -->
+        <form action="/admin/inventory/delete" method="POST" onsubmit="return confirm('Delete this equipment?');">
+          <input type="hidden" name="equipment_id" value="{{ item.equipment_id }}">
+          <button type="submit" class="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm">Delete</button>
+        </form>
+      </div>
+      {% else %}
+      <p class="text-gray-500 col-span-full">No equipment data available.</p>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+</html>

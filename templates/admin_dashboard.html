@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin Dashboard | GymFlow</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen">
+
+  <div class="flex min-h-screen">
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-lg hidden md:block">
+      <div class="p-6 border-b border-gray-200">
+        <h1 class="text-2xl font-extrabold text-indigo-600">GymFlow Admin</h1>
+      </div>
+      <nav class="px-6 py-6 space-y-4 text-sm">
+        <a href="{{ url_for('admin.dashboard') }}" class="block text-indigo-700 font-semibold">🏠 Dashboard</a>
+        <a href="{{ url_for('admin.inventory') }}" class="block text-gray-700 hover:text-indigo-700">🛠️ Manage Equipment</a>
+        <a href="{{ url_for('admin.analytics') }}" class="block text-gray-700 hover:text-indigo-700">📈 Analytics</a>
+        <a href="{{ url_for('admin.maintenance_logs') }}" class="block text-gray-700 hover:text-indigo-700">🧰 Maintenance</a>
+        <a href="{{ url_for('auth.logout') }}" class="block text-red-600 hover:text-red-800 font-medium">🚪 Logout</a>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+      <!-- Mobile Header -->
+      <header class="bg-white shadow md:hidden p-4 flex justify-between items-center">
+        <h1 class="text-xl font-bold text-indigo-600">GymFlow Admin</h1>
+        <span class="text-sm text-gray-600">Hi Admin</span>
+      </header>
+
+      <!-- Page Content -->
+      <main class="p-6 md:p-10 space-y-10 flex-1 overflow-y-auto">
+
+        <!-- Dashboard Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">👥 Total Members</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.total_members or 0 }}</h3>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">🏋️ Total Trainers</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.total_trainers or 0 }}</h3>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">📈 Total Reservations</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.total_reservations or 0 }}</h3>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">📝 Workouts Logged</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.total_workouts or 0 }}</h3>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">🧰 Maintenance Logs</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.maintenance_count or 0 }}</h3>
+          </div>
+          <div class="bg-white p-6 rounded-xl shadow text-center">
+            <p class="text-gray-500">📦 Equipment Count</p>
+            <h3 class="mt-2 text-3xl font-bold text-blue-600">{{ stats.equipment_count or 0 }}</h3>
+          </div>
+        </section>
+
+        <!-- Chart -->
+        <section class="bg-white rounded-2xl shadow-lg p-6">
+          <h2 class="text-2xl font-semibold text-gray-800 mb-6">📊 Weekly Usage Analytics</h2>
+          <div class="max-w-4xl mx-auto">
+            <canvas id="analyticsChart"></canvas>
+          </div>
+        </section>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="text-center text-gray-500 text-sm py-4 border-t bg-white">
+        &copy; 2025 <span class="font-semibold text-indigo-600">GymFlow</span>. All rights reserved.
+      </footer>
+    </div>
+  </div>
+
+  <!-- Chart.js Example (dummy data) -->
+  <script>
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+        datasets: [{
+          label: 'Reservations',
+          data: [6, 9, 5, 8, 7],
+          backgroundColor: [
+            'rgba(99, 102, 241, 0.7)',
+            'rgba(139, 92, 246, 0.7)',
+            'rgba(79, 70, 229, 0.7)',
+            'rgba(96, 165, 250, 0.7)',
+            'rgba(59, 130, 246, 0.7)'
+          ],
+          borderColor: 'rgba(59, 130, 246, 1)',
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: { stepSize: 1 },
+            grid: { color: '#f3f4f6' }
+          },
+          x: {
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

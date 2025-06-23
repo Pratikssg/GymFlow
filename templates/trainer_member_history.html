@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Member Workout History</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen p-6">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- Header -->
+    <header class="text-center">
+      <h1 class="text-3xl font-bold text-blue-700">📓 Workout History for {{ member.name }}</h1>
+      <p class="text-gray-600 mt-1 text-sm">Email: {{ member.email }}</p>
+    </header>
+
+    <!-- Workout Logs -->
+    <section class="bg-white p-6 rounded-xl shadow">
+      <h2 class="text-xl font-semibold mb-4 text-gray-800">🏋️ Exercise Log</h2>
+      <div class="space-y-4">
+        {% for w in workouts %}
+        <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
+          <div class="flex justify-between items-center">
+            <h3 class="text-lg font-semibold text-blue-600">Workout on {{ w.date }}</h3>
+            {% if w.notes %}<span class="text-sm text-gray-500 italic">Note: {{ w.notes }}</span>{% endif %}
+          </div>
+          <p class="mt-2 text-sm text-gray-700">📝 Exercises: {{ w.exercises }}</p>
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-sm text-center">No workout logs found for this member.</p>
+        {% endfor %}
+      </div>
+    </section>
+
+    <!-- Back Link -->
+    <div class="text-center pt-4">
+      <a href="{{ url_for('trainer.dashboard') }}" class="text-blue-600 hover:underline text-sm">← Back to Trainer Dashboard</a>
+    </div>
+
+  </div>
+</body>
+</html>
